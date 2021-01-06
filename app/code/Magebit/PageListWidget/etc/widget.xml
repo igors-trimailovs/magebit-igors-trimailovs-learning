@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is part of the Magebit PageListWidget package.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magebit PageListWidge
+ * to newer versions in the future.
+ *
+ * @copyright Copyright (c) 2019 Magebit, Ltd. (https://magebit.com/)
+ * @license   GNU General Public License ("GPL") v3.0
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Magebit\PageListWidget\Block\Widget\PageList" id="magebit_pagelistwidget_pagelist">
+        <label>New PageListWidget</label>
+        <description>This is a widget to learn how to create new widgets</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" required="false" visible="true" sort_order="10">
+                <label>Title</label>
+            </parameter>
+            <parameter name="display" xsi:type="select" visible="true" required="true" sort_order="20">
+                <label translate="true">Display mode</label>
+                <options>
+                    <option name="allPages" value="0" selected="true">
+                        <label>All pages</label>
+                    </option>
+                    <option name="specificPages" value="1">
+                        <label>Specific pages</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="cmspages" xsi:type="multiselect" required="false" visible="true" sort_order="30"
+                       source_model="Magebit\PageListWidget\Model\Config\Source\DataOptions">
+                <label>Choose CMS Page</label>
+                <depends>
+                    <parameter name="display" value="1" />
+                </depends>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

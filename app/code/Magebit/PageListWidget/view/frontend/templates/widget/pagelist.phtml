@@ -1,0 +1,17 @@
+<?php
+/** \Magebit\PageListWidget\Block\Widget\PageList $block */ ?>
+<?php
+    $links = $block->getData('cmspages');
+    if ($links != NULL) {
+        $links = explode(',', $links);
+    } else {
+        $links = $block->getCmsPages();
+    }
+?>
+<h3><?= $block->escapeHtml($block->getData('title')) ?></h3>
+
+<?php foreach ($links as $link) { ?>
+<ol>
+    <a><?=$link?></a><br>
+</ol>
+<?php } ?>
