@@ -16,11 +16,13 @@
         border: 0px;
       }
     }
+
     .fieldset {
       .field.qty {
         #qty {
           height: 40px;
         }
+
         .stock.available{
           padding-top: 10px;
           padding-left: 20px;
@@ -61,20 +63,34 @@
 }
 
 .product.details.product-item-details {
+  display: flex;
+  flex-direction: column;
+
+  .product-reviews-summary.short {
+    order: 1;
+  }
+
   .price-box.price-final_price {
+    order: 2;
+
     .price {
       font-size: 22px;
     }
   }
+
+  .product.actions.product-item-actions {
+    order: 3;
+  }
+
   .product.name.product-item-name {
     margin-left: 0px;
-
   }
 }
 
 .product.actions.product-item-actions {
   .actions-primary{
     width: 100%;
+
     button {
       width: 100%;
       background-color: $orange;

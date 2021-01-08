@@ -39,11 +39,19 @@
 .product.photo.product-item-photo.upsell {
   width: 110px; }
 
-.product.details.product-item-details .price-box.price-final_price .price {
-  font-size: 22px; }
-
-.product.details.product-item-details .product.name.product-item-name {
-  margin-left: 0px; }
+.product.details.product-item-details {
+  display: flex;
+  flex-direction: column; }
+  .product.details.product-item-details .product-reviews-summary.short {
+    order: 1; }
+  .product.details.product-item-details .price-box.price-final_price {
+    order: 2; }
+    .product.details.product-item-details .price-box.price-final_price .price {
+      font-size: 22px; }
+  .product.details.product-item-details .product.actions.product-item-actions {
+    order: 3; }
+  .product.details.product-item-details .product.name.product-item-name {
+    margin-left: 0px; }
 
 .product.actions.product-item-actions .actions-primary {
   width: 100%; }

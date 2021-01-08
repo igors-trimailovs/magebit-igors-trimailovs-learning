@@ -50,7 +50,7 @@ switch ($type = $block->getType()) {
 
             $showAddTo = false;
             $showCart = true;
-            $templateType = null;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
             $description = false;
         }
         break;
@@ -90,7 +90,7 @@ switch ($type = $block->getType()) {
 
             $showAddTo = false;
             $showCart = false;
-            $templateType = null;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
             $description = false;
             $canItemsAddToCart = true;
         }
