@@ -1,0 +1,20 @@
+<?php $_product = $block->getProduct() ?>
+<?php
+    $color = $_product->getClothesColor();
+    $country = $_product->getAttributeText('country_of_manufacture');
+    $size = $_product->getResource()->getAttribute('clothes_size')->getFrontend()->getValue($_product);
+?>
+<div class="description">
+    <ul>
+        <?php if (isset($color)) : ?>
+        <li>Color: <?=$_product->getClothesColor()?></li>
+        <?php endif ?>
+        <?php if ($country != ' ') : ?>
+        <li>Country of manufacture: <?=$country?></li>
+        <?php endif ?>
+        <?php if (isset($size)) : ?>
+        <li>Size: <?=$_product->getResource()->getAttribute('clothes_size')->getFrontend()->getValue($_product);?></li>
+        <?php endif ?>
+    </ul>
+    <h5><?=$_product->getShortDescription()?></h5>
+</div>

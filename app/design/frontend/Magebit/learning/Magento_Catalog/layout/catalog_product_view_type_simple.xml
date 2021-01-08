@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.type">
+            <block class="Magento\Catalog\Block\Product\View\Type\Simple" name="product.info.custom.description" as="product_type_data" template="Magento_Catalog::product/list/items_description.phtml"/>
+            <container name="product.info.simple.extra" after="product.info.simple" as="product_type_data_extra" label="Product Extra Info"/>
+        </referenceContainer>
+        <move element="product.info.custom.description" destination="product.info.main" after="product.info.price"/>
+        <move element="product.info.upsell" destination="product.info.main" after="product.info.addtocart" />
+        <referenceBlock name="product.info.simple" remove="true"/>
+        <referenceBlock name="product.info.overview" remove="true"/>
+        <referenceBlock name="product.info.social" remove="true"/>
+        <referenceBlock name="product.review.form" remove="true" />
+        <referenceBlock name="reviews.tab" remove="true" />
+    </body>
+</page>

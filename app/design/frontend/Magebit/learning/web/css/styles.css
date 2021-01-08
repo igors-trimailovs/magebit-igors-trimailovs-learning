@@ -1,0 +1,100 @@
+.description {
+  padding: 20px 11px;
+  background-color: #F9F9F9; }
+
+.quantity-wrapper {
+  display: flex; }
+
+.product-add-form .box-tocart .actions .action.primary.tocart {
+  width: 100%;
+  background-color: #FF5622;
+  border: 0px; }
+
+.product-add-form .box-tocart .fieldset .field.qty #qty {
+  height: 40px; }
+
+.product-add-form .box-tocart .fieldset .field.qty .stock.available {
+  padding-top: 10px;
+  padding-left: 20px; }
+
+.action.view {
+  color: #FF5622;
+  text-decoration: underline; }
+
+.reviews-actions .action.add {
+  border: 1px solid #000;
+  padding: 5px;
+  border-radius: 3px;
+  color: #000; }
+
+.view-product-button {
+  border: 1px solid #000;
+  padding: 6px 10px;
+  border-radius: 2px;
+  color: #fff;
+  background-color: #000; }
+  .view-product-button:visited {
+    color: #fff; }
+
+.product.photo.product-item-photo.upsell {
+  width: 110px; }
+
+.product.details.product-item-details .price-box.price-final_price .price {
+  font-size: 22px; }
+
+.product.details.product-item-details .product.name.product-item-name {
+  margin-left: 0px; }
+
+.product.actions.product-item-actions .actions-primary {
+  width: 100%; }
+  .product.actions.product-item-actions .actions-primary button {
+    width: 100%;
+    background-color: #FF5622;
+    font-size: 18px;
+    border: initial; }
+
+.view-product-button-wrapper {
+  margin-left: auto;
+  margin-top: 10%; }
+
+.item.product.product-item.upsell {
+  width: 100%; }
+  .item.product.product-item.upsell .product-item-info {
+    width: 100%;
+    display: flex; }
+
+.btn-dec {
+  float: left;
+  background-color: #fff;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  height: 40px;
+  width: 40px;
+  border-right: initial; }
+
+.stock-checkmark {
+  max-height: 15px;
+  padding-right: 5px; }
+
+.btn-inc {
+  float: right;
+  background-color: #fff;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  color: #FF5622;
+  height: 40px;
+  width: 40px;
+  border-left: initial; }
+
+.product-info-main .product-info-stock-sku {
+  float: initial;
+  padding-top: 2%; }
+
+.product-info-main .product-info-price {
+  border-bottom: initial; }
+
+ul {
+  margin-bottom: initial; }
+
+h5 {
+  margin: initial; }

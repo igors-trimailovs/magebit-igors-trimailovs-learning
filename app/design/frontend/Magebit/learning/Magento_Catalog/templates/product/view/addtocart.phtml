@@ -1,0 +1,85 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php
+$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+$stockItem = $objectManager->get('\Magento\CatalogInventory\Model\Stock\StockItemRepository');
+$productStock = $stockItem->get($_product->getId());
+?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()) :?>
+<div class="box-tocart">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()) :?>
+        <div class="field qty">
+            <script type="text/x-magento-init">
+            {
+               "*": {
+                       "Magento_Ui/js/core/app": {
+                           "components": {
+                               "qty-counter": {
+                                   "component": "Magento_Catalog/js/qty-counter",
+                                   "defaultQty": <?php echo $block->getProductDefaultQty() * 1 ?>
+                               }
+                           }
+                       }
+               }
+            }
+            </script>
+            <div class="quantity-wrapper">
+                <div class="control" data-bind="scope: 'qty-counter'">
+                    <button class="btn-dec" data-bind="click: decreaseQty">-</button>
+                    <input  data-bind="value: qty()"
+                            type="number"
+                            name="qty"
+                            id="qty"
+                            maxlength="12"
+                            title="<?php echo __('Qty') ?>"
+                            class="input-text qty"
+                            data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                    />
+                    <button class="btn-inc" data-bind="click: increaseQty">+</button>
+                </div>
+                <?php if ($block->displayProductStockStatus()) :?>
+                    <?php if ($_product->isAvailable()) :?>
+                        <div class="stock available" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                            <img class="stock-checkmark" src="<?=$block->getViewFileUrl('images/checkmark.svg')?>">
+                            <span><?= $block->escapeHtml(__('In stock ')) ?></span>
+                            <span><?=$productStock->getQty()?><?=__(' items available')?></span>
+                        </div>
+                    <?php else :?>
+                        <div class="stock unavailable" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                           <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
+
+
+        </div>
+    </div>
+        <?php endif; ?>
+        <div class="actions">
+            <button type="submit"
+                    title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button" disabled>
+                <span><?= $block->escapeHtml($buttonTitle) ?></span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>

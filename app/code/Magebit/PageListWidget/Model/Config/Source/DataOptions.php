@@ -25,6 +25,11 @@ use Magento\Framework\Option\ArrayInterface;
 class DataOptions implements ArrayInterface
 {
 
+    /**
+     * DataOptions constructor.
+     * @param \Magento\Cms\Api\PageRepositoryInterface $pageRepository
+     * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
+     */
     public function __construct(
         \Magento\Cms\Api\PageRepositoryInterface $pageRepository,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
@@ -33,6 +38,10 @@ class DataOptions implements ArrayInterface
         $this->_search = $searchCriteriaBuilder;
     }
 
+    /**
+     * Returns CMS Pages
+     * @return array
+     */
     public function toOptionArray()
     {
         /** var @array */
@@ -48,6 +57,9 @@ class DataOptions implements ArrayInterface
         return $pages;
     }
 
+    /**
+     * @return \Magento\Framework\Api\SearchCriteria
+     */
     protected function _getSearchCriteria()
     {
         return $this->_search->addFilter('is_active', '1')->create();

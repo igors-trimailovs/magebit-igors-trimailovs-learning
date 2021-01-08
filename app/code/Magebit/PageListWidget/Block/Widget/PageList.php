@@ -30,6 +30,13 @@ class PageList extends Template implements BlockInterface
      */
     protected $_template = "widget/pagelist.phtml";
 
+    /**
+     * PageList constructor.
+     * @param Template\Context $context
+     * @param array $data
+     * @param \Magento\Cms\Api\PageRepositoryInterface $pageRepository
+     * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
+     */
     public function __construct(
         Template\Context $context,
         array $data = [],

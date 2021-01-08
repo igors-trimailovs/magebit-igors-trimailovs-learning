@@ -1,0 +1,146 @@
+.description {
+  padding: 20px 11px;
+  background-color: $lightgray;
+}
+
+.quantity-wrapper {
+  display: flex;
+}
+
+.product-add-form {
+  .box-tocart {
+    .actions {
+      .action.primary.tocart {
+        width: 100%;
+        background-color: $orange;
+        border: 0px;
+      }
+    }
+    .fieldset {
+      .field.qty {
+        #qty {
+          height: 40px;
+        }
+        .stock.available{
+          padding-top: 10px;
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+}
+
+.action.view {
+  color: $orange;
+  text-decoration: underline;
+}
+
+.reviews-actions {
+  .action.add {
+    border: 1px solid $black;
+    padding: 5px;
+    border-radius: 3px;
+    color: $black;
+  }
+}
+
+.view-product-button {
+  border: 1px solid $black;
+  padding: 6px 10px;
+  border-radius: 2px;
+  color: $white;
+  background-color: $black;
+
+  &:visited {
+    color: $white;
+  }
+}
+
+.product.photo.product-item-photo.upsell {
+  width: 110px;
+}
+
+.product.details.product-item-details {
+  .price-box.price-final_price {
+    .price {
+      font-size: 22px;
+    }
+  }
+  .product.name.product-item-name {
+    margin-left: 0px;
+
+  }
+}
+
+.product.actions.product-item-actions {
+  .actions-primary{
+    width: 100%;
+    button {
+      width: 100%;
+      background-color: $orange;
+      font-size: 18px;
+      border: initial;
+    }
+  }
+}
+
+.view-product-button-wrapper {
+  margin-left: auto;
+  margin-top: 10%;
+}
+
+.item.product.product-item.upsell {
+  width: 100%;
+
+  .product-item-info{
+    width: 100%;
+    display: flex;
+  }
+}
+
+.btn-dec {
+  float: left;
+  background-color: $white;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  height: 40px;
+  width: 40px;
+  border-right: initial;
+}
+
+.stock-checkmark {
+  max-height: 15px;
+  padding-right: 5px;
+}
+
+.btn-inc {
+  float: right;
+  background-color: $white;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  color: $orange;
+  height: 40px;
+  width: 40px;
+  border-left: initial;
+}
+
+.product-info-main {
+  .product-info-stock-sku {
+    float: initial;
+    padding-top: 2%;
+  }
+}
+
+.product-info-main {
+  .product-info-price {
+    border-bottom: initial;
+  }
+}
+
+ul {
+  margin-bottom: initial;
+}
+
+h5 {
+  margin: initial;
+}
