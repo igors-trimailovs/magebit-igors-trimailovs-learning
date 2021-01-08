@@ -1,10 +1,10 @@
 <?php
 /**
- * This file is part of the Magebit learning.
+ * This file is part of the Magebit learning theme.
  *
  * DISCLAIMER
  *
- * Do not edit or add to this file if you wish to upgrade Magebit learning
+ * Do not edit or add to this file if you wish to upgrade Magebit learning theme
  * to newer versions in the future.
  *
  * @copyright Copyright (c) 2019 Magebit, Ltd. (https://magebit.com/)

@@ -1,8 +1,23 @@
-<?php $_product = $block->getProduct() ?>
 <?php
-    $color = $_product->getClothesColor();
-    $country = $_product->getAttributeText('country_of_manufacture');
-    $size = $_product->getResource()->getAttribute('clothes_size')->getFrontend()->getValue($_product);
+/**
+* This file is part of the Magebit learning theme.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade Magebit learning theme
+* to newer versions in the future.
+*
+* @copyright Copyright (c) 2019 Magebit, Ltd. (https://magebit.com/)
+* @license   GNU General Public License ("GPL") v3.0
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*/
+
+$_product = $block->getProduct();
+$color = $_product->getClothesColor();
+$country = $_product->getAttributeText('country_of_manufacture');
+$size = $_product->getResource()->getAttribute('clothes_size')->getFrontend()->getValue($_product);
 ?>
 <div class="description">
     <ul>
