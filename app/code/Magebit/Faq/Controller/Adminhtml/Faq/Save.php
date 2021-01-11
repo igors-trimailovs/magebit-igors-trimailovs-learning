@@ -13,13 +13,19 @@ class Save extends Action implements HttpPostActionInterface
     private $faqFactory;
 
     public function __construct(
-        Context $context
+        Context $context,
+        FaqFactory $faqFactory
     ) {
         parent::__construct($context);
+        $this->faqFactory = $faqFactory;
     }
 
     public function execute()
     {
+        $this->faqFactory->create()
+            ->setData($this->getRequest()->getPostValue()['general'])
+            ->save();
+
         return $this->resultRedirectFactory->create()->setPath('faq/index/index');
     }
 }
