@@ -7,7 +7,7 @@
  * Do not edit or add to this file if you wish to upgrade Magebit Faq
  * to newer versions in the future.
  *
- * @copyright Copyright (c) 2019 Magebit, Ltd. (https://magebit.com/)
+ * @copyright Copyright (c) 2020 Magebit, Ltd. (https://magebit.com/)
  * @license   GNU General Public License ("GPL") v3.0
  *
  * For the full copyright and license information, please view the LICENSE
@@ -29,6 +29,16 @@ use Psr\Log\LoggerInterface as Logger;
 class Collection extends SearchResult
 {
 
+    /**
+     * Collection constructor.
+     * @param EntityFactory $entityFactory
+     * @param Logger $logger
+     * @param FetchStrategy $fetchStrategy
+     * @param EventManager $eventManager
+     * @param string $mainTable
+     * @param string $resourceModel
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     public function __construct(
         EntityFactory $entityFactory,
         Logger $logger,

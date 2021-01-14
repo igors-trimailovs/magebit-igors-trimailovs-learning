@@ -7,7 +7,7 @@
  * Do not edit or add to this file if you wish to upgrade Magebit Faq
  * to newer versions in the future.
  *
- * @copyright Copyright (c) 2019 Magebit, Ltd. (https://magebit.com/)
+ * @copyright Copyright (c) 2020 Magebit, Ltd. (https://magebit.com/)
  * @license   GNU General Public License ("GPL") v3.0
  *
  * For the full copyright and license information, please view the LICENSE
@@ -15,6 +15,7 @@
  */
 
 namespace Magebit\Faq\Model\ResourceModel\Faq;
+
 use Magebit\Faq\Model\Faq as Model;
 use Magebit\Faq\Model\ResourceModel\Faq as ResourceModel;
 
@@ -24,6 +25,11 @@ use Magebit\Faq\Model\ResourceModel\Faq as ResourceModel;
  */
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
+
+    /**
+     * @var string
+     */
+    protected $_idFieldName = 'id';
 
     /**
      * Define resource model

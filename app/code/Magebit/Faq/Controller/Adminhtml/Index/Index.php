@@ -7,7 +7,7 @@
  * Do not edit or add to this file if you wish to upgrade Magebit Faq
  * to newer versions in the future.
  *
- * @copyright Copyright (c) 2019 Magebit, Ltd. (https://magebit.com/)
+ * @copyright Copyright (c) 2020 Magebit, Ltd. (https://magebit.com/)
  * @license   GNU General Public License ("GPL") v3.0
  *
  * For the full copyright and license information, please view the LICENSE
@@ -53,12 +53,12 @@ class Index extends Action implements HttpGetActionInterface
     }
 
     /**
-     * Load the page defined in view/adminhtml/layout/exampleadminnewpage_helloworld_index.xml
-     *
+     * Index
      * @return Page
      */
     public function execute()
     {
+        /** @var PageFactory $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu(static::MENU_ID);
         $resultPage->getConfig()->getTitle()->prepend(__('Magebit'));

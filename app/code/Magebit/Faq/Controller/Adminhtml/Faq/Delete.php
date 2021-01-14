@@ -23,18 +23,23 @@ use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterf
 use Magento\Framework\View\Result\PageFactory;
 
 /**
- * Class Save
+ * Class Delete
  * @package Magebit\Faq\Controller\Adminhtml\Faq
  */
-class Save extends Action implements HttpPostActionInterface
+class Delete extends Action implements HttpPostActionInterface
 {
     /**
-     * @var FaqFactory
+     * @var Magebit\Faq\Model\FaqFactory $faqFactory
      */
-    private $faqFactory;
+    protected $faqFactory;
 
     /**
-     * Save constructor.
+     * @var PageFactory
+     */
+    protected $resultPageFactory;
+
+    /**
+     * Delete constructor.
      * @param Context $context
      * @param FaqFactory|null $faqFactory
      * @param PageFactory $resultPageFactory
@@ -50,15 +55,20 @@ class Save extends Action implements HttpPostActionInterface
     }
 
     /**
-     * Save FAQ
+     * Delete Faq
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Redirect|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
-        $this->faqFactory->create()
-            ->setData($this->getRequest()->getPostValue()['general'])
-            ->save();
+        /** @var PageFactory $resultRedirect */
+        $resultRedirect = $this->resultRedirectFactory->create();
+        /** @var int $id */
+        $id = $this->getRequest()->getParam('id');
+        /** @var FaqFactory $model */
+        $model = $this->faqFactory->create();
+        $model->load($id);
+        $model->delete();
 
-        return $this->resultRedirectFactory->create()->setPath('faq/index/index');
+        return $resultRedirect->setPath('faq/index/index');
     }
 }
