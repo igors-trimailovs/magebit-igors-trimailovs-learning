@@ -24,7 +24,6 @@
         <item name="label" xsi:type="string" translate="true">General</item>
         <item name="layout" xsi:type="array">
             <item name="type" xsi:type="string">tabs</item>
-            <item name="navContainerName" xsi:type="string">left</item>
         </item>
         <item name="buttons" xsi:type="array">
             <item name="save" xsi:type="array">
