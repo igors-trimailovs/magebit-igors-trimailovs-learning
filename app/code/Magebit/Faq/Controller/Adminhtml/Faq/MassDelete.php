@@ -77,7 +77,7 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
         $collectionSize = $collection->getSize();
 
         foreach ($collection as $faq) {
-            $this->faqRepository->delete($faq);
+            $this->faqRepository->deleteById($faq['id']);
         }
 
         $this->messageManager->addSuccessMessage(__('A total of %1 record(s) have been deleted.', $collectionSize));
