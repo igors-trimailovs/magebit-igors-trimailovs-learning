@@ -15,11 +15,14 @@
  */
 namespace Magebit\Faq\Controller\Adminhtml\Faq;
 
+use Magebit\Faq\Api\Data\FaqInterface;
+use Magebit\Faq\Model\FaqRepository;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
 use Magebit\Faq\Model\ResourceModel\Faq\CollectionFactory;
+use Magebit\Faq\Api\FaqRepositoryInterface;
 
 /**
  * Class MassDelete
@@ -38,13 +41,24 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
      */
     protected $faqFactory;
 
+
+    /**
+     * @var FaqRepositoryInterface
+     */
+    protected $faqRepository;
+
     /**
      * @param Context $context
      * @param Filter $filter
      * @param CollectionFactory $collectionFactory
      */
-    public function __construct(Context $context, Filter $filter, CollectionFactory $faqFactory)
-    {
+    public function __construct(
+        Context $context,
+        Filter $filter,
+        CollectionFactory $faqFactory,
+        FaqRepositoryInterface $faqRepository
+    ) {
+        $this->faqRepository = $faqRepository;
         $this->filter = $filter;
         $this->faqFactory = $faqFactory;
         parent::__construct($context);
@@ -63,7 +77,7 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
         $collectionSize = $collection->getSize();
 
         foreach ($collection as $faq) {
-            $faq->delete();
+            $this->faqRepository->delete($faq);
         }
 
         $this->messageManager->addSuccessMessage(__('A total of %1 record(s) have been deleted.', $collectionSize));

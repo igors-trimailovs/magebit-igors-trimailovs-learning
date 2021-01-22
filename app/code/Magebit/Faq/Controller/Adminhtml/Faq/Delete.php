@@ -21,6 +21,7 @@ use Magebit\Faq\Model\FaqFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
 use Magento\Framework\View\Result\PageFactory;
+use Magebit\Faq\Api\FaqRepositoryInterface;
 
 /**
  * Class Delete
@@ -39,6 +40,11 @@ class Delete extends Action implements HttpPostActionInterface
     protected $resultPageFactory;
 
     /**
+     * @var FaqRepositoryInterface
+     */
+    protected $faqRepository;
+
+    /**
      * Delete constructor.
      * @param Context $context
      * @param FaqFactory|null $faqFactory
@@ -47,8 +53,10 @@ class Delete extends Action implements HttpPostActionInterface
     public function __construct(
         Context $context,
         FaqFactory $faqFactory,
-        PageFactory $resultPageFactory
+        PageFactory $resultPageFactory,
+        FaqRepositoryInterface $faqRepository
     ) {
+        $this->faqRepository = $faqRepository;
         $this->faqFactory = $faqFactory;
         $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context);
@@ -64,10 +72,7 @@ class Delete extends Action implements HttpPostActionInterface
         $resultRedirect = $this->resultRedirectFactory->create();
         /** @var int $id */
         $id = $this->getRequest()->getParam('id');
-        /** @var FaqFactory $model */
-        $model = $this->faqFactory->create();
-        $model->load($id);
-        $model->delete();
+        $this->faqRepository->deleteById($id);
 
         return $resultRedirect->setPath('faq/index/index');
     }

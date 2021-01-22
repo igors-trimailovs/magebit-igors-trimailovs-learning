@@ -21,6 +21,7 @@ use Magebit\Faq\Model\FaqFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
 use Magento\Framework\View\Result\PageFactory;
+use Magebit\Faq\Api\FaqRepositoryInterface;
 
 /**
  * Class Save
@@ -31,7 +32,12 @@ class Save extends Action implements HttpPostActionInterface
     /**
      * @var FaqFactory
      */
-    private $faqFactory;
+    protected $faqFactory;
+
+    /**
+     * @var FaqRepositoryInterface
+     */
+    protected $faqRepository;
 
     /**
      * Save constructor.
@@ -42,8 +48,10 @@ class Save extends Action implements HttpPostActionInterface
     public function __construct(
         Context $context,
         FaqFactory $faqFactory,
-        PageFactory $resultPageFactory
+        PageFactory $resultPageFactory,
+        FaqRepositoryInterface $faqRepository
     ) {
+        $this->faqRepository = $faqRepository;
         $this->faqFactory = $faqFactory;
         $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context);
@@ -55,9 +63,8 @@ class Save extends Action implements HttpPostActionInterface
      */
     public function execute()
     {
-        $this->faqFactory->create()
-            ->setData($this->getRequest()->getPostValue()['general'])
-            ->save();
+        $model = $this->faqFactory->create()->setData($this->getRequest()->getPostValue()['general']);
+        $this->faqRepository->save($model);
 
         return $this->resultRedirectFactory->create()->setPath('faq/index/index');
     }

@@ -20,6 +20,7 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
 use Magebit\Faq\Model\ResourceModel\Faq\CollectionFactory;
+use Magebit\Faq\Api\FaqManagementInterface;
 
 /**
  * Class MassDelete
@@ -33,6 +34,11 @@ class MassDisable extends \Magento\Backend\App\Action implements HttpPostActionI
     protected $filter;
 
     /**
+     * @var FaqManagementInterface
+     */
+    protected $faqManagment;
+
+    /**
      * @var CollectionFactory
      */
     protected $faqFactory;
@@ -42,10 +48,15 @@ class MassDisable extends \Magento\Backend\App\Action implements HttpPostActionI
      * @param Filter $filter
      * @param CollectionFactory $collectionFactory
      */
-    public function __construct(Context $context, Filter $filter, CollectionFactory $faqFactory)
-    {
+    public function __construct(
+        Context $context,
+        Filter $filter,
+        FaqManagementInterface $faqManagment,
+        CollectionFactory $faqFactory
+    ) {
         $this->filter = $filter;
         $this->faqFactory = $faqFactory;
+        $this->faqManagment = $faqManagment;
         parent::__construct($context);
     }
 
@@ -62,8 +73,7 @@ class MassDisable extends \Magento\Backend\App\Action implements HttpPostActionI
         $collectionSize = $collection->getSize();
 
         foreach ($collection as $faq) {
-            $faq['status'] = 0;
-            $faq->save();
+            $this->faqManagment->disableQuestion($faq);
         }
 
         $this->messageManager->addSuccessMessage(__('A total of %1 record(s) have been disabled.', $collectionSize));

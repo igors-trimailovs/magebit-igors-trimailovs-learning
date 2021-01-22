@@ -19,6 +19,7 @@ namespace Magebit\Faq\Controller\Adminhtml\Faq;
 use Magento\Backend\App\Action\Context;
 use Magebit\Faq\Model\FaqFactory;
 use Magento\Framework\Controller\Result\JsonFactory;
+use Magebit\Faq\Api\FaqRepositoryInterface;
 
 /**
  * Class InlineEdit
@@ -38,6 +39,11 @@ class InlineEdit extends \Magento\Backend\App\Action
     protected $jsonFactory;
 
     /**
+     * @var FaqRepositoryInterface
+     */
+    protected $faqRepository;
+
+    /**
      * InlineEdit constructor.
      * @param Context $context
      * @param FaqFactory $faqFactory
@@ -46,9 +52,11 @@ class InlineEdit extends \Magento\Backend\App\Action
     public function __construct(
         Context $context,
         FaqFactory $faqFactory,
-        JsonFactory $jsonFactory
+        JsonFactory $jsonFactory,
+        FaqRepositoryInterface $faqRepository
     ) {
         parent::__construct($context);
+        $this->faqRepository = $faqRepository;
         $this->faqFactory = $faqFactory;
         $this->jsonFactory = $jsonFactory;
     }
@@ -71,8 +79,8 @@ class InlineEdit extends \Magento\Backend\App\Action
 
         foreach (array_keys($postItems) as $faqId) {
             $faq = $this->faqFactory->create()->load($faqId);
-            $faq->setData(array_merge($faq->getData(), $postItems[$faqId]))
-                ->save();
+            $faq->setData(array_merge($faq->getData(), $postItems[$faqId]));
+            $this->faqRepository->save($faq);
         }
 
         return $resultJson->setData([
