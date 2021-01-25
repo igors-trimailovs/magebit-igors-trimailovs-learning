@@ -31,8 +31,6 @@ class Collection extends SearchResult
     */
     protected function _initSelect()
     {
-        $this->addFilterToMap('id', 'magebit_faq_table.id');
-        $this->addFilterToMap('question', 'magebit_faq_table.question');
         parent::_initSelect();
     }
 }
