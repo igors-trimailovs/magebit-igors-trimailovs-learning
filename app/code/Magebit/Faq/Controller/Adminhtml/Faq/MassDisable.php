@@ -20,7 +20,7 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
 use Magebit\Faq\Model\ResourceModel\Faq\CollectionFactory;
-use Magebit\Faq\Api\FaqManagementInterface;
+use Magebit\Faq\Model\FaqManagement;
 
 /**
  * Class MassDelete
@@ -34,7 +34,7 @@ class MassDisable extends \Magento\Backend\App\Action implements HttpPostActionI
     protected $filter;
 
     /**
-     * @var FaqManagementInterface
+     * @var FaqManagement
      */
     protected $faqManagment;
 
@@ -51,7 +51,7 @@ class MassDisable extends \Magento\Backend\App\Action implements HttpPostActionI
     public function __construct(
         Context $context,
         Filter $filter,
-        FaqManagementInterface $faqManagment,
+        FaqManagement $faqManagment,
         CollectionFactory $faqFactory
     ) {
         $this->filter = $filter;
