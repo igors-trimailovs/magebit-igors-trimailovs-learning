@@ -109,9 +109,9 @@ interface FaqInterface
     /**
      * Set position
      *
-     * @param string $poistion
+     * @param string $position
      * @return FaqInterface
      */
-    public function setPosition($poistion);
+    public function setPosition($position);
 
 }
