@@ -168,19 +168,18 @@ class FaqRepository implements FaqRepositoryInterface
      * Get FAQ list
      *
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     * @return \Magento\Faq\Api\Data\FaqSearchResultInterface
+     * @return \Magento\Faq\Api\Data\FaqSearchResultsInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getList(SearchCriteriaInterface $searchCriteria)
+    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $criteria)
     {
+        $searchResult = $this->searchResultsFactory->create();
         $collection = $this->faqCollectionFactory->create();
-        $this->collectionProcessor->process($searchCriteria, $collection);
-        $searchResults = $this->searchResultFactory->create();
+        $this->collectionProcessor->process($criteria, $collection);
+        $searchResult->setItems($collection->getItems());
+        $searchResult->setTotalCount($collection->getSize());
 
-        $searchResults->setSearchCriteria($searchCriteria);
-        $searchResults->setItems($collection->getItems());
-
-        return $searchResults;
+        return $searchResult;
     }
 
 }

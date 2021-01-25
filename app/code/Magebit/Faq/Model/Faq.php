@@ -78,7 +78,7 @@ class Faq extends \Magento\Framework\Model\AbstractModel implements FaqInterface
      */
     public function setQuestion($question)
     {
-        return parent::setData(self::UPDATED_AT, $question);
+        return parent::setData(self::QUESTION, $question);
     }
 
     /**

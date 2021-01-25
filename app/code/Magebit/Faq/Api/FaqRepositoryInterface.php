@@ -35,7 +35,7 @@ interface FaqRepositoryInterface
     /**
      * Retrieve faq by id
      *
-     * @param string $blockId
+     * @param integer $faqId
      * @return \Magento\Cms\Api\Data\BlockInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -45,7 +45,7 @@ interface FaqRepositoryInterface
      * Retrieve FAQ matching the specified criteria.
      *
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     * @return \Magebit\Api\Data\FaqSearchResultsInterface
+     * @return \Magebit\Faq\Api\Data\FaqSearchResultsInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
@@ -53,7 +53,7 @@ interface FaqRepositoryInterface
     /**
      * Delete faq.
      *
-     * @param \Magento\Cms\Api\Data\FaqInterface $faq
+     * @param \Magebit\Faq\Api\Data\FaqInterface $faq
      * @return bool true on success
      * @throws \Magento\Framework\Exception\LocalizedException
      */
