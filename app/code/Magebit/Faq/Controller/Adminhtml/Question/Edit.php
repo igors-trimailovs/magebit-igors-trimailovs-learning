@@ -14,10 +14,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Magebit\Faq\Controller\Adminhtml\Faq;
+namespace Magebit\Faq\Controller\Adminhtml\Question;
 
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Action\HttpGetActionInterface as HttpGetActionInterface;
+use Magebit\Faq\Api\QuestionRepositoryInterface;
 
 /**
  * Class Edit
@@ -32,23 +33,20 @@ class Edit extends Action implements HttpGetActionInterface
     protected $resultPageFactory;
 
     /**
-     * @var \Magebit\Faq\Model\FaqFactory
+     * @var QuestionRepositoryInterface
      */
-    protected $faqFactory;
+    protected $questionRepository;
 
     /**
      * Edit constructor.
      * @param Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     * @param \Magebit\Faq\Model\FaqFactory $faqFactory
+     * @param QuestionRepositoryInterface $questionRepository
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Magebit\Faq\Model\FaqFactory $faqFactory
+        QuestionRepositoryInterface $questionRepository
     ) {
-        $this->faqFactory = $faqFactory;
-        $this->resultPageFactory = $resultPageFactory;
+        $this->questionRepository = $questionRepository;
         parent::__construct($context);
     }
 
@@ -60,10 +58,10 @@ class Edit extends Action implements HttpGetActionInterface
     {
         /** @var int $id */
         $id = $this->getRequest()->getParam('id');
-        /** @var \Magebit\Faq\Model\Faq $model */
-        $model = $this->faqFactory->create()->load($id);
+        /** @var \Magebit\Faq\Model\Question $model */
+        $model = $this->questionRepository->getById($id);
         /** @var  $resultPage */
-        $resultPage = $this->resultPageFactory->create();
+        $resultPage = $this->resultFactory->create($this->resultFactory::TYPE_PAGE);
 
         return $resultPage;
     }

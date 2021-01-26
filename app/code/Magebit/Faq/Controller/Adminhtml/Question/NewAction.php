@@ -14,7 +14,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Magebit\Faq\Controller\Adminhtml\Faq;
+namespace Magebit\Faq\Controller\Adminhtml\Question;
 
 use Magento\Backend\App\Action;
 use Magento\Framework\Controller\ResultFactory;

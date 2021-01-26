@@ -14,7 +14,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Magebit\Faq\Model\ResourceModel\Faq\Grid;
+namespace Magebit\Faq\Model\ResourceModel\Question\Grid;
 
 use Magento\Framework\Data\Collection\Db\FetchStrategyInterface as FetchStrategy;
 use Magento\Framework\Data\Collection\EntityFactoryInterface as EntityFactory;
@@ -45,7 +45,7 @@ class Collection extends SearchResult
         FetchStrategy $fetchStrategy,
         EventManager $eventManager,
         $mainTable = 'magebit_faq_table',
-        $resourceModel = 'Magebit\Faq\Model\ResourceModel\Faq'
+        $resourceModel = 'Magebit\Faq\Model\ResourceModel\Question'
     ) {
         parent::__construct(
             $entityFactory,

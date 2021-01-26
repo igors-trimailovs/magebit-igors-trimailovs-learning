@@ -14,58 +14,76 @@
  * file that was distributed with this source code.
  */
 
-namespace Magebit\Faq\Controller\Adminhtml\Faq;
+namespace Magebit\Faq\Controller\Adminhtml\Question;
 
 use Magento\Backend\App\Action;
-use Magebit\Faq\Model\FaqFactory;
+use Magebit\Faq\Model\QuestionFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
 use Magento\Framework\View\Result\PageFactory;
-use Magebit\Faq\Api\FaqRepositoryInterface;
+use Magebit\Faq\Api\QuestionRepositoryInterface;
 
 /**
- * Class Save
+ * Class Delete
  * @package Magebit\Faq\Controller\Adminhtml\Faq
  */
-class Save extends Action implements HttpPostActionInterface
+class Delete extends Action implements HttpPostActionInterface
 {
     /**
-     * @var FaqFactory
+     * @var Magebit\Faq\Model\QuestionFactory $questionFactory
      */
-    protected $faqFactory;
+    protected $questionFactory;
 
     /**
-     * @var FaqRepositoryInterface
+     * @var PageFactory
      */
-    protected $faqRepository;
+    protected $resultPageFactory;
 
     /**
-     * Save constructor.
+     * @var QuestionRepositoryInterface
+     */
+    protected $questionRepository;
+
+    /**
+     * Delete constructor.
      * @param Context $context
      * @param FaqFactory|null $faqFactory
      * @param PageFactory $resultPageFactory
      */
     public function __construct(
         Context $context,
-        FaqFactory $faqFactory,
+        questionFactory $questionFactory,
         PageFactory $resultPageFactory,
-        FaqRepositoryInterface $faqRepository
+        QuestionRepositoryInterface $questionRepository
     ) {
-        $this->faqRepository = $faqRepository;
-        $this->faqFactory = $faqFactory;
+        $this->questionRepository = $questionRepository;
+        $this->questionFactory = $questionFactory;
         $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context);
     }
 
     /**
-     * Save FAQ
+     * Delete Faq
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Redirect|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
-        $model = $this->faqFactory->create()->setData($this->getRequest()->getPostValue()['general']);
-        $this->faqRepository->save($model);
+        /** @var PageFactory $resultRedirect */
+        $resultRedirect = $this->resultRedirectFactory->create();
+        /** @var int $id */
+        $id = $this->getRequest()->getParam('id');
 
-        return $this->resultRedirectFactory->create()->setPath('faq/index/index');
+        if ($id) {
+            try {
+                $this->questionRepository->deleteById($id);
+
+                return $resultRedirect->setPath('faq/index/index');
+            } catch (\Exception $e) {
+
+                return $resultRedirect->setPath('faq/question/edit');
+            }
+        }
+
+        return $resultRedirect->setPath('faq/index/index');
     }
 }

@@ -16,7 +16,7 @@
 
 namespace Magebit\Faq\Ui;
 
-use  Magebit\Faq\Model\ResourceModel\Faq\CollectionFactory;
+use  Magebit\Faq\Model\ResourceModel\Question\CollectionFactory;
 
 /**
  * Class DataProvider

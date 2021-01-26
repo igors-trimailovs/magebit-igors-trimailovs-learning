@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of the Magebit Faq package.
  *
@@ -20,23 +21,23 @@ namespace Magebit\Faq\Api;
  * Faq Magagment Interface.
  * @api
  */
-interface FaqManagementInterface
+interface QuestionManagementInterface
 {
     /**
      * Enable FAQ
      *
-     * @param \Magebit\Faq\Api\Data\FaqInterface $faq
+     * @param \Magebit\Faq\Api\Data\QuestionInterface $faq
      * @return boolean
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function enableQuestion(Data\FaqInterface $faq);
+    public function enableQuestion(Data\QuestionInterface $faq): bool;
 
     /**
      * Disable FAQ
      *
-     * @param \Magebit\Faq\Api\Data\FaqInterface $faq
+     * @param \Magebit\Faq\Api\Data\QuestionInterface $faq
      * @return boolean
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function disableQuestion(Data\FaqInterface $faq);
+    public function disableQuestion(Data\QuestionInterface $faq): bool;
 }

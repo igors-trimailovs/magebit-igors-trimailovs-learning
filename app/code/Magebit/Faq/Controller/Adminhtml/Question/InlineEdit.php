@@ -14,12 +14,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Magebit\Faq\Controller\Adminhtml\Faq;
+namespace Magebit\Faq\Controller\Adminhtml\Question;
 
 use Magento\Backend\App\Action\Context;
-use Magebit\Faq\Model\FaqFactory;
+use Magebit\Faq\Model\QuestionFactory;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Magebit\Faq\Api\FaqRepositoryInterface;
+use Magebit\Faq\Api\QuestionRepositoryInterface;
 
 /**
  * Class InlineEdit
@@ -29,9 +29,9 @@ class InlineEdit extends \Magento\Backend\App\Action
 {
 
     /**
-     * @var FaqFactory
+     * @var QuestionFactory
      */
-    protected $faqFactory;
+    protected $questionFactory;
 
     /**
      * @var JsonFactory
@@ -39,9 +39,9 @@ class InlineEdit extends \Magento\Backend\App\Action
     protected $jsonFactory;
 
     /**
-     * @var FaqRepositoryInterface
+     * @var QuestionRepositoryInterface
      */
-    protected $faqRepository;
+    protected $questionRepository;
 
     /**
      * InlineEdit constructor.
@@ -51,13 +51,13 @@ class InlineEdit extends \Magento\Backend\App\Action
      */
     public function __construct(
         Context $context,
-        FaqFactory $faqFactory,
+        QuestionFactory $questionFactory,
         JsonFactory $jsonFactory,
-        FaqRepositoryInterface $faqRepository
+        QuestionRepositoryInterface $questionRepository
     ) {
         parent::__construct($context);
-        $this->faqRepository = $faqRepository;
-        $this->faqFactory = $faqFactory;
+        $this->questionRepository = $questionRepository;
+        $this->questionFactory = $questionFactory;
         $this->jsonFactory = $jsonFactory;
     }
 
@@ -78,9 +78,14 @@ class InlineEdit extends \Magento\Backend\App\Action
         $postItems = $this->getRequest()->getParam('items', []);
 
         foreach (array_keys($postItems) as $faqId) {
-            $faq = $this->faqFactory->create()->load($faqId);
-            $faq->setData(array_merge($faq->getData(), $postItems[$faqId]));
-            $this->faqRepository->save($faq);
+            try {
+                $faq = $this->questionRepository->getById($faqId);
+                $faq->setData(array_merge($faq->getData(), $postItems[$faqId]));
+                $this->questionRepository->save($faq);
+            } catch (\Exception $e) {
+                $error = true;
+                $messages[] = $e;
+            }
         }
 
         return $resultJson->setData([

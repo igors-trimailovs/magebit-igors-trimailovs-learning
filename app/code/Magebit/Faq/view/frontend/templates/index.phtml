@@ -1,15 +1,15 @@
 <?php
-$FAQs = $block->getFAQs();
+$FAQs = $block->getQuestions();
 ?>
 
-<h1>Frequently Asked Questions</h1>
+<h1><?=__('Frequently Asked Questions')?></h1>
 <div id="FAQs">
     <?php foreach ($FAQs as $FAQ) : ?>
     <div class="faq">
         <div data-role="collapsible">
-            <div class="question" data-role="trigger"><h5><?=$FAQ['question']?></h5></div>
+            <div class="question" data-role="trigger"><h5><?=__($FAQ['question'])?></h5></div>
         </div>
-        <div class="answer" data-role="content"><?=$FAQ['answer']?></div>
+        <div class="answer" data-role="content"><?=__($FAQ['answer'])?></div>
     </div>
     <?php endforeach; ?>
 </div>

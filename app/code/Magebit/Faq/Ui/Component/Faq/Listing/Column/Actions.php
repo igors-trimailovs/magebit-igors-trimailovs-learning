@@ -69,11 +69,11 @@ class Actions extends Column
                 $name = $this->getData('name');
                 if (isset($item['id'])) {
                     $item[$name]['edit'] = [
-                        'href' => $this->context->getUrl('faq/faq/edit', ['id' => $item['id']]),
+                        'href' => $this->context->getUrl('faq/question/edit', ['id' => $item['id']]),
                         'label' => __('Edit')
                     ];
                     $item[$name]['delete'] = [
-                        'href' => $this->context->getUrl('faq/faq/delete', ['id' => $item['id']]),
+                        'href' => $this->context->getUrl('faq/question/delete', ['id' => $item['id']]),
                         'label' => __('Delete'),
                         'confirm' => [
                             'title' => __('Delete ?'),

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of the Magebit Faq package.
  *
@@ -14,12 +15,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Magebit\Faq\Model;
+namespace Magebit\Faq\Api\Data;
 
-use Magento\Framework\Api\SearchResults;
-use Magebit\Faq\Api\Data\FaqSearchResultsInterface;
+use Magento\Framework\Api\SearchResultsInterface;
 
-class FaqSearchResults extends SearchResults implements FaqSearchResultsInterface
+interface QuestionSearchResultsInterface extends SearchResultsInterface
 {
+    /**
+     * @return \Magebit\Faq\Api\Data\QuestionInterface[]
+     */
+    public function getItems();
 
+    /**
+     * @param \Magebit\Faq\Api\Data\QuestionInterface[] $items
+     * @return void
+     */
+    public function setItems(array $items);
 }

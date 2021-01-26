@@ -15,10 +15,12 @@
  * file that was distributed with this source code.
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Magebit\Faq\Api\Data\FaqInterface" type="Magebit\Faq\Model\Faq" />
-    <preference for="Magebit\Faq\Api\Data\FaqSearchResultsInterface" type="Magebit\Faq\Model\FaqSearchResults" />
-    <preference for="Magebit\Faq\Api\FaqRepositoryInterface" type="Magebit\Faq\Model\FaqRepository" />
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magebit\Faq\Api\Data\QuestionInterface" type="Magebit\Faq\Model\Question" />
+    <preference for="Magebit\Faq\Api\Data\QuestionSearchResultsInterface"
+                type="Magebit\Faq\Model\QuestionSearchResults" />
+    <preference for="Magebit\Faq\Api\QuestionRepositoryInterface" type="Magebit\Faq\Model\QuestionRepository" />
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
@@ -29,7 +31,7 @@
     <virtualType name="MagebitFaqFaqCollection" type="Magebit\Faq\Ui\DataProvider\Faq\Listing\Collection">
         <arguments>
             <argument name="mainTable" xsi:type="string">magebit_faq_table</argument>
-            <argument name="resourceModel" xsi:type="string">Magebit\Faq\Model\ResourceModel\Faq</argument>
+            <argument name="resourceModel" xsi:type="string">Magebit\Faq\Model\ResourceModel\Question</argument>
         </arguments>
     </virtualType>
 </config>

@@ -13,19 +13,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Magebit\Faq\Controller\Adminhtml\Faq;
+namespace Magebit\Faq\Controller\Adminhtml\Question;
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
-use Magebit\Faq\Model\ResourceModel\Faq\CollectionFactory;
-use Magebit\Faq\Model\FaqManagement;
+use Magebit\Faq\Model\ResourceModel\Question\CollectionFactory;
+use Magebit\Faq\Model\QuestionManagement;
 
 /**
  * Class MassDelete
  */
-class MassDisable extends \Magento\Backend\App\Action implements HttpPostActionInterface
+class MassEnable extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
 
     /**
@@ -34,14 +34,14 @@ class MassDisable extends \Magento\Backend\App\Action implements HttpPostActionI
     protected $filter;
 
     /**
-     * @var FaqManagement
+     * @var QuestionManagement
      */
-    protected $faqManagment;
+    protected $questionManagment;
 
     /**
-     * @var CollectionFactory
+     * @var QuestionFactory
      */
-    protected $faqFactory;
+    protected $questionFactory;
 
     /**
      * @param Context $context
@@ -51,12 +51,12 @@ class MassDisable extends \Magento\Backend\App\Action implements HttpPostActionI
     public function __construct(
         Context $context,
         Filter $filter,
-        FaqManagement $faqManagment,
-        CollectionFactory $faqFactory
+        QuestionManagement $questionManagment,
+        CollectionFactory $questionFactory
     ) {
         $this->filter = $filter;
-        $this->faqFactory = $faqFactory;
-        $this->faqManagment = $faqManagment;
+        $this->questionFactory = $questionFactory;
+        $this->questionManagment = $questionManagment;
         parent::__construct($context);
     }
 
@@ -69,14 +69,14 @@ class MassDisable extends \Magento\Backend\App\Action implements HttpPostActionI
     public function execute()
     {
         /** @var CollectionFactory $collection */
-        $collection = $this->filter->getCollection($this->faqFactory->create());
+        $collection = $this->filter->getCollection($this->questionFactory->create());
         $collectionSize = $collection->getSize();
 
         foreach ($collection as $faq) {
-            $this->faqManagment->disableQuestion($faq);
+            $this->questionManagment->enableQuestion($faq);
         }
 
-        $this->messageManager->addSuccessMessage(__('A total of %1 record(s) have been disabled.', $collectionSize));
+        $this->messageManager->addSuccessMessage(__('A total of %1 record(s) have been enabled.', $collectionSize));
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);

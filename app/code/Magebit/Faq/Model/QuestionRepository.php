@@ -16,23 +16,23 @@
 
 namespace Magebit\Faq\Model;
 
-use Magebit\Faq\Api\FaqRepositoryInterface;
+use Magebit\Faq\Api\QuestionRepositoryInterface;
 use Magebit\Faq\Api\Data;
-use Magebit\Faq\Model\ResourceModel\Faq as ResourceFaq;
-use Magebit\Faq\Model\ResourceModel\Faq\CollectionFactory as FaqCollectionFactory;
+use Magebit\Faq\Model\ResourceModel\Question as ResourceQuestion;
+use Magebit\Faq\Model\ResourceModel\Question\CollectionFactory as QuestionCollectionFactory;
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Magebit\Faq\Api\Data\FaqSearchResultsInterfaceFactory;
-use Magebit\Faq\Api\Data\FaqInterfaceFactory;
+use Magebit\Faq\Api\Data\QuestionSearchResultsInterfaceFactory;
+use Magebit\Faq\Api\Data\QuestionInterfaceFactory;
 
 /**
  * Class FaqRepository
  */
-class FaqRepository implements FaqRepositoryInterface
+class QuestionRepository implements QuestionRepositoryInterface
 {
     /**
      * @var ResourceFaq
@@ -42,15 +42,15 @@ class FaqRepository implements FaqRepositoryInterface
     /**
      * @var FaqFactory
      */
-    protected $faqFactory;
+    protected $questionFactory;
 
     /**
      * @var FaqCollectionFactory
      */
-    protected $faqCollectionFactory;
+    protected $questionCollectionFactory;
 
     /**
-     * @var Data\FaqSearchResultsInterfaceFactory
+     * @var Data\QuestionSearchResultsInterfaceFactory
      */
     protected $searchResultsFactory;
 
@@ -61,9 +61,9 @@ class FaqRepository implements FaqRepositoryInterface
 
 
     /**
-     * @var \Magebit\Faq\Api\Data\FaqInterfaceFactory
+     * @var \Magebit\Faq\Api\Data\QuestionInterfaceFactory
      */
-    protected $dataFaqFactory;
+    protected $dataQuestionFactory;
 
     /**
      * @var CollectionProcessorInterface
@@ -71,39 +71,39 @@ class FaqRepository implements FaqRepositoryInterface
     protected $collectionProcessor;
 
     /**
-     * @param ResourceFaq $resource
-     * @param FaqFactory $FaqFactory
+     * @param ResourceQuestion $resource
+     * @param QuestionFactory $FaqFactory
      * @param Data\FaqInterfaceFactory $dataFaqFactory
      * @param FaqCollectionFactory $faqCollectionFactory
      * @param Data\FaqSearchResultsInterfaceFactory $searchResultsFactory
      * @param DataObjectHelper $dataObjectHelper
      */
     public function __construct(
-        ResourceFaq $resource,
-        FaqFactory $faqFactory,
-        FaqInterfaceFactory $dataFaqFactory,
-        FaqCollectionFactory $faqCollectionFactory,
-        FaqSearchResultsInterfaceFactory $searchResultsFactory,
+        ResourceQuestion $resource,
+        QuestionFactory $questionFactory,
+        QuestionInterfaceFactory $dataQuestionFactory,
+        QuestionCollectionFactory $questionCollectionFactory,
+        QuestionSearchResultsInterfaceFactory $searchResultsFactory,
         DataObjectHelper $dataObjectHelper,
         CollectionProcessorInterface $collectionProcessor
     ) {
         $this->resource = $resource;
-        $this->faqFactory = $faqFactory;
-        $this->faqCollectionFactory = $faqCollectionFactory;
+        $this->questionFactory = $questionFactory;
+        $this->questionCollectionFactory = $questionCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->dataObjectHelper = $dataObjectHelper;
-        $this->dataFaqFactory = $dataFaqFactory;
+        $this->dataQuestionFactory = $dataQuestionFactory;
         $this->collectionProcessor = $collectionProcessor;
     }
 
     /**
      * Save Faq data
      *
-     * @param \Magebit\Faq\Api\Data\FaqInterface $faq
-     * @return Faq
+     * @param \Magebit\Faq\Api\Data\QuestionInterface $faq
+     * @return Question
      * @throws CouldNotSaveException
      */
-    public function save(Data\FaqInterface $faq)
+    public function save(Data\QuestionInterface $faq): \Magebit\Faq\Api\Data\QuestionInterface
     {
         try {
             $this->resource->save($faq);
@@ -117,11 +117,11 @@ class FaqRepository implements FaqRepositoryInterface
     /**
      * Delete Faq
      *
-     * @param \Magebit\Faq\Api\Data\FaqInterface $faq
+     * @param \Magebit\Faq\Api\Data\QuestionInterface $faq
      * @return bool
      * @throws CouldNotDeleteException
      */
-    public function delete(Data\FaqInterface $faq)
+    public function delete(Data\QuestionInterface $faq): bool
     {
         try {
             $this->resource->delete($faq);
@@ -136,12 +136,12 @@ class FaqRepository implements FaqRepositoryInterface
      * Load Faq data by given Faq Identity
      *
      * @param string $faqId
-     * @return Faq
+     * @return Question
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getById($faqId)
+    public function getById($faqId): \Magebit\Faq\Api\Data\QuestionInterface
     {
-        $faq = $this->faqFactory->create();
+        $faq = $this->questionFactory->create();
         $this->resource->load($faq, $faqId);
         if (!$faq->getId()) {
             throw new NoSuchEntityException(__('The FAQ with the "%1" ID doesn\'t exist.', $faqId));
@@ -158,11 +158,12 @@ class FaqRepository implements FaqRepositoryInterface
      * @throws CouldNotDeleteException
      * @throws NoSuchEntityException
      */
-    public function deleteById($faqId)
+    public function deleteById($faqId): bool
     {
-        return $this->delete($this->getById($faqId));
-    }
+        $this->delete($this->getById($faqId));
 
+        return true;
+    }
 
     /**
      * Get FAQ list
@@ -171,10 +172,10 @@ class FaqRepository implements FaqRepositoryInterface
      * @return \Magento\Faq\Api\Data\FaqSearchResultsInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $criteria)
+    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $criteria): \Magebit\Faq\Api\Data\QuestionSearchResultsInterface
     {
         $searchResult = $this->searchResultsFactory->create();
-        $collection = $this->faqCollectionFactory->create();
+        $collection = $this->questionCollectionFactory->create();
         $this->collectionProcessor->process($criteria, $collection);
         $searchResult->setItems($collection->getItems());
         $searchResult->setTotalCount($collection->getSize());

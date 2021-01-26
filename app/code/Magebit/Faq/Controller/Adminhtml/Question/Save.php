@@ -14,66 +14,63 @@
  * file that was distributed with this source code.
  */
 
-namespace Magebit\Faq\Controller\Adminhtml\Faq;
+namespace Magebit\Faq\Controller\Adminhtml\Question;
 
 use Magento\Backend\App\Action;
-use Magebit\Faq\Model\FaqFactory;
+use Magebit\Faq\Model\QuestionFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
 use Magento\Framework\View\Result\PageFactory;
-use Magebit\Faq\Api\FaqRepositoryInterface;
+use Magebit\Faq\Api\QuestionRepositoryInterface;
 
 /**
- * Class Delete
+ * Class Save
  * @package Magebit\Faq\Controller\Adminhtml\Faq
  */
-class Delete extends Action implements HttpPostActionInterface
+class Save extends Action implements HttpPostActionInterface
 {
     /**
-     * @var Magebit\Faq\Model\FaqFactory $faqFactory
+     * @var QuestionFactory
      */
-    protected $faqFactory;
+    protected $questionFactory;
 
     /**
-     * @var PageFactory
+     * @var QuestionRepositoryInterface
      */
-    protected $resultPageFactory;
+    protected $questionRepository;
 
     /**
-     * @var FaqRepositoryInterface
-     */
-    protected $faqRepository;
-
-    /**
-     * Delete constructor.
+     * Save constructor.
      * @param Context $context
-     * @param FaqFactory|null $faqFactory
+     * @param QuestionFactory|null $questionFactory
      * @param PageFactory $resultPageFactory
      */
     public function __construct(
         Context $context,
-        FaqFactory $faqFactory,
+        QuestionFactory $questionFactory,
         PageFactory $resultPageFactory,
-        FaqRepositoryInterface $faqRepository
+        QuestionRepositoryInterface $questionRepository
     ) {
-        $this->faqRepository = $faqRepository;
-        $this->faqFactory = $faqFactory;
+        $this->questionRepository = $questionRepository;
+        $this->questionFactory = $questionFactory;
         $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context);
     }
 
     /**
-     * Delete Faq
+     * Save FAQ
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Redirect|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
-        /** @var PageFactory $resultRedirect */
-        $resultRedirect = $this->resultRedirectFactory->create();
-        /** @var int $id */
-        $id = $this->getRequest()->getParam('id');
-        $this->faqRepository->deleteById($id);
+        $model = $this->questionFactory->create()->setData($this->getRequest()->getPostValue()['general']);
+        try {
+            $this->questionRepository->save($model);
+        } catch (\Exception $e) {
+            return $this->resultRedirectFactory->create()->setPath('faq/index/index');
+        }
 
-        return $resultRedirect->setPath('faq/index/index');
+
+        return $this->resultRedirectFactory->create()->setPath('faq/index/index');
     }
 }

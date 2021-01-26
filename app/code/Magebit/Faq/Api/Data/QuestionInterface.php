@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of the Magebit Faq package.
  *
@@ -21,12 +22,12 @@ namespace Magebit\Faq\Api\Data;
  * @api
  * @since 100.0.2
  */
-interface FaqInterface
+interface QuestionInterface
 {
     /**
      * Database table name
      */
-    const TABLE = "magebit_faq_table";
+    const TABLE = 'magebit_faq_table';
 
 
     /**#@+
@@ -40,78 +41,85 @@ interface FaqInterface
     const UPDATED_AT = 'updated_at';
     /**#@-*/
 
+    /**#@+
+     * Question status
+     */
+    const ENABLED = 1;
+    const DISABLED = 0;
+    /**#@-*/
+
     /**
      * Get ID
      *
      * @return int|null
      */
-    public function getId();
+    public function getId(): ?string;
 
     /**
      * Get question
      *
      * @return string
      */
-    public function getQuestion();
+    public function getQuestion(): ?string;
 
     /**
      * Get answer
      *
      * @return string|null
      */
-    public function getAnswer();
+    public function getAnswer(): ?string;
 
     /**
      * Get status
      *
      * @return string|null
      */
-    public function getStatus();
+    public function getStatus(): ?string;
 
     /**
      * Get position
      *
      * @return string|null
      */
-    public function getPosition();
+    public function getPosition(): ?int;
 
     /**
      * Get update time
      *
      * @return string|null
      */
-    public function getUpdatedAt();
+    public function getUpdatedAt(): ?string;
 
     /**
      * Set question
      *
      * @param string $question
-     * @return FaqInterface
+     * @return QuestionInterface
      */
-    public function setQuestion($question);
+    public function setQuestion($question): bool;
 
     /**
      * Set answer
      *
      * @param string $answer
-     * @return FaqInterface
+     * @return QuestionInterface
      */
-    public function setAnswer($answer);
+    public function setAnswer($answer): bool;
 
     /**
      * Set status
      *
      * @param string $status
-     * @return FaqInterface
+     * @return QuestionInterface
      */
-    public function setStatus($status);
+    public function setStatus($status): bool;
 
     /**
      * Set position
      *
      * @param string $position
-     * @return FaqInterface
+     * @return QuestionInterface
      */
-    public function setPosition($position);
+    public function setPosition($position): bool;
 
 }

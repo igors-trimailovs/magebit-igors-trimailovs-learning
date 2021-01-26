@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
  * This file is part of the Magebit Faq package.
  *
@@ -14,11 +13,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
--->
-<page layout="admin-2columns-left" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <body>
-        <referenceContainer name="content">
-            <uiComponent name="magebit_faq_faq_form"/>
-        </referenceContainer>
-    </body>
-</page>
+
+namespace Magebit\Faq\Model;
+
+use Magento\Framework\Api\SearchResults;
+use Magebit\Faq\Api\Data\QuestionSearchResultsInterface;
+
+class QuestionSearchResults extends SearchResults implements QuestionSearchResultsInterface
+{
+
+}

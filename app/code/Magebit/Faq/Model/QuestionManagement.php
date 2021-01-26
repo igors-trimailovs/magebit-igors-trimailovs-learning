@@ -17,10 +17,10 @@
 namespace Magebit\Faq\Model;
 
 use Magebit\Faq\Api\Data;
-use Magebit\Faq\Model\ResourceModel\Faq as ResourceFaq;
-use Magebit\Faq\Api\FaqManagementInterface;
+use Magebit\Faq\Model\ResourceModel\Question as ResourceFaq;
+use Magebit\Faq\Api\QuestionManagementInterface;
 
-class FaqManagement implements FaqManagementInterface
+class QuestionManagement implements QuestionManagementInterface
 {
     /**
      * @var ResourceFaq
@@ -39,22 +39,32 @@ class FaqManagement implements FaqManagementInterface
     /**
      * Enable question
      */
-    public function enableQuestion(Data\FaqInterface $faq)
+    public function enableQuestion(Data\QuestionInterface $faq): bool
     {
-        $faq['status'] = 1;
-        $this->resource->save($faq);
+        $faq->setStatus($faq::ENABLED);
+        try {
+            $this->resource->save($faq);
 
-        return true;
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+
     }
 
     /**
      * Disable question
      */
-    public function disableQuestion(Data\FaqInterface $faq)
+    public function disableQuestion(Data\QuestionInterface $faq): bool
     {
-        $faq['status'] = 0;
-        $this->resource->save($faq);
+        $faq->setStatus($faq::DISABLED);
+        try {
+            $this->resource->save($faq);
 
-        return true;
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+
     }
 }

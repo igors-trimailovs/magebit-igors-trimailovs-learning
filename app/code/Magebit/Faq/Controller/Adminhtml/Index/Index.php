@@ -33,23 +33,14 @@ class Index extends Action implements HttpGetActionInterface
     const MENU_ID = 'Magebit_Faq::cms_faq';
 
     /**
-     * @var PageFactory
-     */
-    protected $resultPageFactory;
-
-    /**
      * Index constructor.
      *
      * @param Context $context
-     * @param PageFactory $resultPageFactory
      */
     public function __construct(
-        Context $context,
-        PageFactory $resultPageFactory
+        Context $context
     ) {
         parent::__construct($context);
-
-        $this->resultPageFactory = $resultPageFactory;
     }
 
     /**
@@ -58,8 +49,8 @@ class Index extends Action implements HttpGetActionInterface
      */
     public function execute()
     {
-        /** @var PageFactory $resultPage */
-        $resultPage = $this->resultPageFactory->create();
+        /** @var resultFactory $resultPage */
+        $resultPage = $this->resultFactory->create($this->resultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu(static::MENU_ID);
         $resultPage->getConfig()->getTitle()->prepend(__('Magebit'));
 

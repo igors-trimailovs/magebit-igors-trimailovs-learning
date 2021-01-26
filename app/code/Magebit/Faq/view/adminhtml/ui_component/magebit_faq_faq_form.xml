@@ -15,7 +15,8 @@
  * file that was distributed with this source code.
  */
 -->
-<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">magebit_faq_faq_form.magebit_faq_faq_form_data_source</item>
@@ -30,13 +31,13 @@
                 <item name="name" xsi:type="string">save</item>
                 <item name="label" xsi:type="string">Save</item>
                 <item name="class" xsi:type="string">primary</item>
-                <item name="url" xsi:type="string">faq/faq/save</item>
+                <item name="url" xsi:type="string">faq/question/save</item>
             </item>
             <item name="back" xsi:type="array">
                 <item name="name" xsi:type="string">back</item>
                 <item name="label" xsi:type="string">Back</item>
                 <item name="class" xsi:type="string">primary</item>
-                <item name="url" xsi:type="string">faq/index/index</item>
+                <item name="url" xsi:type="string">faq/question/index</item>
             </item>
         </item>
     </argument>
@@ -48,7 +49,7 @@
             <argument name="requestFieldName" xsi:type="string">id</argument>
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="submit_url" xsi:type="url" path="faq/faq/save"/>
+                    <item name="submit_url" xsi:type="url" path="faq/question/save"/>
                 </item>
             </argument>
         </argument>

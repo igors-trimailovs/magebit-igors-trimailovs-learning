@@ -16,6 +16,12 @@
 
 namespace Magebit\Faq\Block;
 
+use Magebit\Faq\Api\QuestionRepositoryInterface;
+use Magento\Framework\Api\Filter;
+use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Api\SortOrder;
+use Magento\Framework\Api\SortOrderBuilder;
+
 /**
  * Class Index
  * @package Magebit\Faq\Block
@@ -23,32 +29,55 @@ namespace Magebit\Faq\Block;
 class Index extends \Magento\Framework\View\Element\Template
 {
     /**
-     * @var \Magebit\Faq\Model\ResourceModel\Faq\CollectionFactory
+     * @var QuestionRepositoryInterface
      */
-    protected $faqCollection;
+    protected $questionRepository;
+
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    protected $searchCriteriaBuilder;
+
+    /**
+     * @var Filter
+     */
+    protected $filter;
+
+    /**
+     * @var SortOrderBuilder
+     */
+    protected $sortOrderBuilder;
 
     /**
      * Index constructor.
      * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Magebit\Faq\Model\ResourceModel\Faq\CollectionFactory $faqCollection
+     * @param QuestionRepositoryInterface $questionRepository
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Magebit\Faq\Model\ResourceModel\Faq\CollectionFactory $faqCollection
+        QuestionRepositoryInterface $questionRepository,
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        Filter $filter,
+        SortOrderBuilder $sortOrderBuilder
     ) {
-        $this->faqCollection = $faqCollection;
+        $this->sortOrderBuilder = $sortOrderBuilder;
+        $this->filter = $filter;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->questionRepository = $questionRepository;
         parent::__construct($context);
     }
 
     /**
      * Get All active FAQs
-     * @return \Magebit\Faq\Model\ResourceModel\Faq\Collection
+     * @return \Magebit\Faq\Model\ResourceModel\Question\Collection
      */
-    public function getFAQs()
+    public function getQuestions()
     {
-        /** @var $data \Magebit\Faq\Model\ResourceModel\Faq\CollectionFactory */
-        $data = $this->faqCollection->create();
-        $data->addFieldToFilter('status', ['eq' => '1']);
+        $this->sortOrderBuilder->setField('position')->setDescendingDirection();
+        $this->searchCriteriaBuilder->addSortOrder($this->sortOrderBuilder->create());
+        $this->searchCriteriaBuilder->addFilter('status', '1', 'eq');
+        /** @var $data QuestionRepositoryInterface */
+        $data = $this->questionRepository->getList($this->searchCriteriaBuilder->create())->getItems();
 
         return $data;
     }

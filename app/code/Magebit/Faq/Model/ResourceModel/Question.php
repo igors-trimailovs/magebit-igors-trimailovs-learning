@@ -14,31 +14,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Magebit\Faq\Model\ResourceModel\Faq;
-
-use Magebit\Faq\Model\Faq as Model;
-use Magebit\Faq\Model\ResourceModel\Faq as ResourceModel;
+namespace Magebit\Faq\Model\ResourceModel;
 
 /**
- * Class Collection
- * @package Magebit\Faq\Model\ResourceModel\Faq
+ * Class Faq
+ * @package Magebit\Faq\Model\ResourceModel
  */
-class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
+class Question extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
 
     /**
-     * @var string
-     */
-    protected $_idFieldName = 'id';
-
-    /**
-     * Define resource model
-     *
-     * @return void
+     * Faq constructor.
      */
     protected function _construct()
     {
-        $this->_init(Model::class, ResourceModel::class);
+        $this->_init('magebit_faq_table', 'id');
     }
 
 }
