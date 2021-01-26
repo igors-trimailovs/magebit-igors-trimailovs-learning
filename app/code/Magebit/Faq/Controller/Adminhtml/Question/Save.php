@@ -19,7 +19,7 @@ namespace Magebit\Faq\Controller\Adminhtml\Question;
 use Magento\Backend\App\Action;
 use Magebit\Faq\Model\QuestionFactory;
 use Magento\Backend\App\Action\Context;
-use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
+use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\View\Result\PageFactory;
 use Magebit\Faq\Api\QuestionRepositoryInterface;
 
@@ -63,7 +63,7 @@ class Save extends Action implements HttpPostActionInterface
      */
     public function execute()
     {
-        $model = $this->questionFactory->create()->setData($this->getRequest()->getPostValue()['general']);
+        $model = $this->questionFactory->create()->setData($this->getRequest()->getPostValue());
         try {
             $this->questionRepository->save($model);
         } catch (\Exception $e) {

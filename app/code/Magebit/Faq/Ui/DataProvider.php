@@ -1,62 +1,74 @@
 <?php
 /**
- * This file is part of the Magebit Faq package.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magebit Faq
- * to newer versions in the future.
- *
- * @copyright Copyright (c) 2020 Magebit, Ltd. (https://magebit.com/)
- * @license   GNU General Public License ("GPL") v3.0
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
  */
-
 namespace Magebit\Faq\Ui;
 
-use  Magebit\Faq\Model\ResourceModel\Question\CollectionFactory;
+use Magebit\Faq\Model\ResourceModel\Question\CollectionFactory;
+use Magento\Ui\DataProvider\Modifier\PoolInterface;
 
 /**
  * Class DataProvider
- * @package Magebit\Faq\Ui
  */
-class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
+class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
 {
     /**
+     * @var \Magebit\Faq\Model\ResourceModel\Question\Collection
+     */
+    protected $collection;
+
+
+    /**
+     * @var array
+     */
+    protected $loadedData;
+
+    /**
+     * Constructor
+     *
      * @param string $name
      * @param string $primaryFieldName
      * @param string $requestFieldName
-     * @param $collectionFactory
+     * @param CollectionFactory $questionCollectionFactory
      * @param array $meta
      * @param array $data
+     * @param PoolInterface|null $pool
      */
     public function __construct(
         $name,
         $primaryFieldName,
         $requestFieldName,
-        CollectionFactory $collectionFactory,
+        CollectionFactory $questionCollectionFactory,
         array $meta = [],
-        array $data = []
+        array $data = [],
+        PoolInterface $pool = null
     ) {
-        parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
-        $this->collection = $collectionFactory->create();
+        $this->collection = $questionCollectionFactory->create();
+        parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
     }
 
     /**
-     * getData method
+     * Get data
+     *
      * @return array
      */
     public function getData()
     {
-        /** @var array $result */
-        $result = [];
-
-        foreach ($this->collection->getItems() as $item) {
-            $result[$item->getId()]['general'] = $item->getData();
+        if (isset($this->loadedData)) {
+            return $this->loadedData;
+        }
+        $items = $this->collection->getItems();
+        foreach ($items as $faq) {
+            $this->loadedData[$faq->getId()] = $faq->getData();
         }
 
-        return $result;
+        if (!empty($data)) {
+            $faq = $this->collection->getNewEmptyItem();
+            $faq->setData($data);
+            $this->loadedData[$faq->getId()] = $faq->getData();
+        }
+
+        return $this->loadedData;
     }
 }

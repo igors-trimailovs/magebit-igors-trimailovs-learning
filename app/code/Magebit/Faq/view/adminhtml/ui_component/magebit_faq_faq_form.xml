@@ -20,27 +20,20 @@
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">magebit_faq_faq_form.magebit_faq_faq_form_data_source</item>
-            <item name="deps" xsi:type="string">magebit_faq_faq_form.magebit_faq_faq_form_data_source</item>
         </item>
-        <item name="label" xsi:type="string" translate="true">General</item>
-        <item name="layout" xsi:type="array">
-            <item name="type" xsi:type="string">tabs</item>
-        </item>
-        <item name="buttons" xsi:type="array">
-            <item name="save" xsi:type="array">
-                <item name="name" xsi:type="string">save</item>
-                <item name="label" xsi:type="string">Save</item>
-                <item name="class" xsi:type="string">primary</item>
-                <item name="url" xsi:type="string">faq/question/save</item>
-            </item>
-            <item name="back" xsi:type="array">
-                <item name="name" xsi:type="string">back</item>
-                <item name="label" xsi:type="string">Back</item>
-                <item name="class" xsi:type="string">primary</item>
-                <item name="url" xsi:type="string">faq/question/index</item>
-            </item>
-        </item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
     </argument>
+    <settings>
+        <buttons>
+            <button name="save" class="Magebit\Faq\Ui\Component\Form\Button\Save"/>
+            <button name="delete" class="Magebit\Faq\Ui\Component\Form\Button\Delete"/>
+            <button name="back" class="Magebit\Faq\Ui\Component\Form\Button\Back"/>
+        </buttons>
+        <deps>
+            <dep>magebit_faq_faq_form.magebit_faq_faq_form_data_source</dep>
+        </deps>
+    </settings>
     <dataSource name="magebit_faq_faq_form_data_source">
         <argument name="data" xsi:type="array">
             <item name="js_config" xsi:type="array">
