@@ -34,4 +34,11 @@
             <argument name="resourceModel" xsi:type="string">Magebit\Faq\Model\ResourceModel\Question</argument>
         </arguments>
     </virtualType>
+    <virtualType name="Magebit\Faq\Model\ResourceModel\Question\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magebit_faq_table</argument>
+            <argument name="resourceModel" xsi:type="string">Magebit\Faq\Model\ResourceModel\Question\Collection</argument>
+        </arguments>
+    </virtualType>
 </config>
