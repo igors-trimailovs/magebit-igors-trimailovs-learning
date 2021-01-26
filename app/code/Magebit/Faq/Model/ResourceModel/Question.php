@@ -22,13 +22,15 @@ namespace Magebit\Faq\Model\ResourceModel;
  */
 class Question extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
+    const TABLE = 'magebit_faq_table';
+    const idField = 'id';
 
     /**
      * Faq constructor.
      */
     protected function _construct()
     {
-        $this->_init('magebit_faq_table', 'id');
+        $this->_init(self::TABLE, self::idField);
     }
 
 }

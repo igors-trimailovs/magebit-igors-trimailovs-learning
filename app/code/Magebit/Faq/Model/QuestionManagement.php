@@ -41,7 +41,7 @@ class QuestionManagement implements QuestionManagementInterface
      */
     public function enableQuestion(Data\QuestionInterface $faq): bool
     {
-        $faq->setStatus($faq::ENABLED);
+        $faq->setStatus(Data\QuestionInterface::ENABLED);
         try {
             $this->resource->save($faq);
 
@@ -57,7 +57,7 @@ class QuestionManagement implements QuestionManagementInterface
      */
     public function disableQuestion(Data\QuestionInterface $faq): bool
     {
-        $faq->setStatus($faq::DISABLED);
+        $faq->setStatus(Data\QuestionInterface::DISABLED);
         try {
             $this->resource->save($faq);
 

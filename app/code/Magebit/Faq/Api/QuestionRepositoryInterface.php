@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /**
  * This file is part of the Magebit Faq package.
  *
@@ -40,7 +39,7 @@ interface QuestionRepositoryInterface
      * @return \Magebit\Faq\Api\Data\QuestionInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getById($faqId): \Magebit\Faq\Api\Data\QuestionInterface;
+    public function getById(int $faqId): \Magebit\Faq\Api\Data\QuestionInterface;
 
     /**
      * Retrieve FAQ matching the specified criteria.
@@ -68,5 +67,5 @@ interface QuestionRepositoryInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function deleteById($faqId): bool;
+    public function deleteById(int $faqId): bool;
 }

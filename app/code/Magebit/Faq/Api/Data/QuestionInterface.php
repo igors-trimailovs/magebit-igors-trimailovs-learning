@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /**
  * This file is part of the Magebit Faq package.
  *
@@ -96,7 +95,7 @@ interface QuestionInterface
      * @param string $question
      * @return QuestionInterface
      */
-    public function setQuestion($question): bool;
+    public function setQuestion(string $question): QuestionInterface;
 
     /**
      * Set answer
@@ -104,7 +103,7 @@ interface QuestionInterface
      * @param string $answer
      * @return QuestionInterface
      */
-    public function setAnswer($answer): bool;
+    public function setAnswer(string $answer): QuestionInterface;
 
     /**
      * Set status
@@ -112,7 +111,7 @@ interface QuestionInterface
      * @param string $status
      * @return QuestionInterface
      */
-    public function setStatus($status): bool;
+    public function setStatus(string $status): QuestionInterface;
 
     /**
      * Set position
@@ -120,6 +119,6 @@ interface QuestionInterface
      * @param string $position
      * @return QuestionInterface
      */
-    public function setPosition($position): bool;
+    public function setPosition(int $position): QuestionInterface;
 
 }

@@ -77,41 +77,33 @@ class Question extends \Magento\Framework\Model\AbstractModel implements Questio
     /**
      * @inheritDoc
      */
-    public function setQuestion($question): bool
+    public function setQuestion($question): QuestionInterface
     {
-        $this->setData(self::QUESTION, $question);
-
-        return true;
+        return $this->setData(self::QUESTION, $question);
     }
 
     /**
      * @inheritDoc
      */
-    public function setAnswer($answer): bool
+    public function setAnswer($answer): QuestionInterface
     {
-        $this->setData(self::ANSWER, $answer);
-
-        return true;
+        return $this->setData(self::ANSWER, $answer);
     }
 
     /**
      * @inheritDoc
      */
-    public function setStatus($status): bool
+    public function setStatus($status): QuestionInterface
     {
-        $this->setData(self::STATUS, $status);
-
-        return true;
+        return $this->setData(self::STATUS, $status);
     }
 
     /**
      * @inheritDoc
      */
-    public function setPosition($position): bool
+    public function setPosition($position): QuestionInterface
     {
-        $this->setData(self::POSITION, $position);
-
-        return true;
+        return $this->setData(self::POSITION, $position);
     }
 
 

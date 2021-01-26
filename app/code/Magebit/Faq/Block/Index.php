@@ -16,6 +16,7 @@
 
 namespace Magebit\Faq\Block;
 
+use Magebit\Faq\Api\Data\QuestionInterface;
 use Magebit\Faq\Api\QuestionRepositoryInterface;
 use Magento\Framework\Api\Filter;
 use Magento\Framework\Api\SearchCriteriaBuilder;
@@ -69,16 +70,15 @@ class Index extends \Magento\Framework\View\Element\Template
 
     /**
      * Get All active FAQs
-     * @return \Magebit\Faq\Model\ResourceModel\Question\Collection
+     * @return \Magebit\Faq\Api\Data\QuestionInterface[]
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getQuestions()
     {
-        $this->sortOrderBuilder->setField('position')->setDescendingDirection();
+        $this->sortOrderBuilder->setField(QuestionInterface::POSITION)->setDescendingDirection();
         $this->searchCriteriaBuilder->addSortOrder($this->sortOrderBuilder->create());
         $this->searchCriteriaBuilder->addFilter('status', '1', 'eq');
-        /** @var $data QuestionRepositoryInterface */
-        $data = $this->questionRepository->getList($this->searchCriteriaBuilder->create())->getItems();
 
-        return $data;
+        return  $this->questionRepository->getList($this->searchCriteriaBuilder->create())->getItems();;
     }
 }
