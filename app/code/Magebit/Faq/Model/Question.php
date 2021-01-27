@@ -26,16 +26,20 @@ use Magebit\Faq\Api\Data\QuestionInterface;
 class Question extends \Magento\Framework\Model\AbstractModel implements QuestionInterface
 {
 
+    public function returnInt($value) {
+        if ($value != null) {
+            return intval($value);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * @inheritDoc
      */
     public function getId(): ?int
     {
-        if ($this->getData(self::ID) != null) {
-            return intval($this->getData(self::ID));
-        } else {
-            return null;
-        }
+        return $this->returnInt($this->getData(self::ID));
     }
 
     /**
@@ -67,7 +71,7 @@ class Question extends \Magento\Framework\Model\AbstractModel implements Questio
      */
     public function getPosition(): ?int
     {
-        return $this->getData(self::POSITION);
+        return $this->returnInt($this->getData(self::POSITION));
     }
 
     /**
