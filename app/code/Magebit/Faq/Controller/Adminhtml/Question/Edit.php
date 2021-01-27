@@ -16,52 +16,72 @@
 
 namespace Magebit\Faq\Controller\Adminhtml\Question;
 
-use Magento\Backend\App\Action;
-use Magento\Framework\App\Action\HttpGetActionInterface as HttpGetActionInterface;
-use Magebit\Faq\Api\QuestionRepositoryInterface;
+use Magento\Framework\App\Action\HttpGetActionInterface;
 
 /**
- * Class Edit
- * @package Magebit\Faq\Controller\Adminhtml\Faq
+ * Edit FAQ action.
  */
-class Edit extends Action implements HttpGetActionInterface
+class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
 {
-
     /**
      * @var \Magento\Framework\View\Result\PageFactory
      */
     protected $resultPageFactory;
 
     /**
-     * @var QuestionRepositoryInterface
+     * Core registry
+     *
+     * @var \Magento\Framework\Registry
      */
-    protected $questionRepository;
+    protected $coreRegistry;
+
+    /**
+     * Question
+     *
+     * @var \Magebit\Faq\Model\Question
+     */
+    protected $question;
 
     /**
      * Edit constructor.
-     * @param Action\Context $context
-     * @param QuestionRepositoryInterface $questionRepository
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param \Magebit\Faq\Model\Question $question
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        QuestionRepositoryInterface $questionRepository
+        \Magento\Framework\Registry $coreRegistry,
+        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
+        \Magebit\Faq\Model\Question $question
     ) {
-        $this->questionRepository = $questionRepository;
+        $this->question = $question;
+        $this->coreRegistry = $coreRegistry;
+        $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context);
     }
 
     /**
      * Edit FAQ
-     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|\Magento\Framework\View\Result\Page
+     *
+     * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
-        /** @var int $id */
         $id = $this->getRequest()->getParam('id');
-        /** @var \Magebit\Faq\Model\Question $model */
-        $model = $this->questionRepository->getById($id);
-        /** @var  $resultPage */
-        $resultPage = $this->resultFactory->create($this->resultFactory::TYPE_PAGE);
+
+        if ($id) {
+            $model = $this->question->load($id);
+            if (!$model->getId()) {
+                $this->messageManager->addErrorMessage(__('This FAQ no longer exists.'));
+                /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+                $resultRedirect = $this->resultRedirectFactory->create();
+                return $resultRedirect->setPath('faq/index/index');
+            }
+        }
+
+        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
+        $resultPage = $this->resultPageFactory->create();
 
         return $resultPage;
     }

@@ -30,6 +30,8 @@
             <button name="delete" class="Magebit\Faq\Ui\Component\Form\Button\Delete"/>
             <button name="back" class="Magebit\Faq\Ui\Component\Form\Button\Back"/>
         </buttons>
+        <namespace>magebit_faq_faq_form</namespace>
+        <dataScope>data</dataScope>
         <deps>
             <dep>magebit_faq_faq_form.magebit_faq_faq_form_data_source</dep>
         </deps>

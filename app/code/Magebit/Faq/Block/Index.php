@@ -20,7 +20,6 @@ use Magebit\Faq\Api\Data\QuestionInterface;
 use Magebit\Faq\Api\QuestionRepositoryInterface;
 use Magento\Framework\Api\Filter;
 use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Api\SortOrderBuilder;
 
 /**
