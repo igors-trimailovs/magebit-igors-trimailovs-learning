@@ -29,9 +29,13 @@ class Question extends \Magento\Framework\Model\AbstractModel implements Questio
     /**
      * @inheritDoc
      */
-    public function getId(): ?string
+    public function getId(): ?int
     {
-        return $this->getData(self::ID);
+        if ($this->getData(self::ID) != null) {
+            return intval($this->getData(self::ID));
+        } else {
+            return null;
+        }
     }
 
     /**

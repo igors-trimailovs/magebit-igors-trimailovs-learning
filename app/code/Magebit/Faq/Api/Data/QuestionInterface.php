@@ -52,7 +52,7 @@ interface QuestionInterface
      *
      * @return int|null
      */
-    public function getId(): ?string;
+    public function getId(): ?int;
 
     /**
      * Get question
