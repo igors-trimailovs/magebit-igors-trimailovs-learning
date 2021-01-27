@@ -19,8 +19,8 @@ namespace Magebit\Faq\Controller\Adminhtml\Index;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\View\Result\Page;
-use Magento\Framework\View\Result\PageFactory;
 
 /**
  * Class Index
@@ -50,7 +50,7 @@ class Index extends Action implements HttpGetActionInterface
     public function execute()
     {
         /** @var resultFactory $resultPage */
-        $resultPage = $this->resultFactory->create($this->resultFactory::TYPE_PAGE);
+        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu(static::MENU_ID);
         $resultPage->getConfig()->getTitle()->prepend(__('Magebit'));
 

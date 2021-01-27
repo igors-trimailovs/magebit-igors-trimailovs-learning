@@ -16,6 +16,8 @@
 
 namespace Magebit\Faq\Model\ResourceModel;
 
+use Magebit\Faq\Api\Data\QuestionInterface;
+
 /**
  * Class Faq
  * @package Magebit\Faq\Model\ResourceModel
@@ -30,7 +32,7 @@ class Question extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _construct()
     {
-        $this->_init(self::TABLE, self::idField);
+        $this->_init(QuestionInterface::TABLE, QuestionInterface::ID);
     }
 
 }

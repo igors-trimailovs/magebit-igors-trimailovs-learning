@@ -76,8 +76,8 @@ class Index extends \Magento\Framework\View\Element\Template
     {
         $this->sortOrderBuilder->setField(QuestionInterface::POSITION)->setDescendingDirection();
         $this->searchCriteriaBuilder->addSortOrder($this->sortOrderBuilder->create());
-        $this->searchCriteriaBuilder->addFilter('status', '1', 'eq');
+        $this->searchCriteriaBuilder->addFilter('status', QuestionInterface::ENABLED, 'eq');
 
-        return  $this->questionRepository->getList($this->searchCriteriaBuilder->create())->getItems();;
+        return  $this->questionRepository->getList($this->searchCriteriaBuilder->create())->getItems();
     }
 }

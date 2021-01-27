@@ -24,28 +24,15 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="magebit_faq_faq_listing_data_source" xsi:type="string">MagebitFaqFaqCollection</item>
+                <item name="magebit_faq_faq_listing_data_source" xsi:type="string">Magebit\Faq\Model\ResourceModel\Question\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
-    <virtualType name="MagebitFaqFaqCollection" type="Magebit\Faq\Ui\DataProvider\Faq\Listing\Collection">
-        <arguments>
-            <argument name="mainTable" xsi:type="string">magebit_faq_table</argument>
-            <argument name="resourceModel" xsi:type="string">Magebit\Faq\Model\ResourceModel\Question</argument>
-        </arguments>
-    </virtualType>
     <virtualType name="Magebit\Faq\Model\ResourceModel\Question\Grid\Collection"
                  type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">magebit_faq_table</argument>
             <argument name="resourceModel" xsi:type="string">Magebit\Faq\Model\ResourceModel\Question\Collection</argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="Magebit\Faq\Model\ResourceModel\Question\Grid\Collection"
-                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
-        <arguments>
-            <argument name="mainTable" xsi:type="string">magebit_faq_table</argument>
-            <argument name="resourceModel" xsi:type="string">Magebit\Faq\Model\ResourceModel\Question</argument>
         </arguments>
     </virtualType>
 </config>
